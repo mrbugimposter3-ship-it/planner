@@ -1,0 +1,121 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#0f3d3e">
+<title>Planner · بسم الله</title>
+<style>
+:root{--g:#0f3d3e;--a:#c9a227;--bg:#f5f3ee;--card:#fff;--mut:#667}
+*{box-sizing:border-box}body{margin:0;font:15px/1.4 -apple-system,system-ui,sans-serif;background:var(--bg);color:#222;padding-bottom:70px}
+header{background:var(--g);color:#fff;padding:calc(14px + env(safe-area-inset-top)) 16px 14px}
+header h1{margin:0;font-size:20px}header .b{font-size:22px;color:var(--a);direction:rtl}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#fff;border-top:1px solid #ddd;padding-bottom:env(safe-area-inset-bottom);z-index:5}
+nav button{flex:1;border:0;background:none;padding:12px 4px;font-size:13px;color:var(--mut)}nav button.on{color:var(--g);font-weight:700}
+main{padding:12px;max-width:640px;margin:auto}.card{background:var(--card);border-radius:14px;padding:12px 14px;margin:10px 0;box-shadow:0 1px 3px #0001}
+.card h3{margin:0 0 4px;font-size:16px}.mut{color:var(--mut);font-size:13px}
+.pt{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:8px;text-align:center;font-size:12px}
+.pt div{background:#eef5f4;border-radius:8px;padding:4px 2px}.pt b{display:block;font-size:13px;color:var(--g)}
+.btn{border:0;border-radius:10px;padding:9px 12px;background:var(--g);color:#fff;font-size:14px}.btn.s{background:#e7e3d8;color:#222}.btn.d{background:#b33}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}label{display:block;font-size:13px;color:var(--mut);margin-top:8px}
+input,textarea,select{width:100%;font-size:16px;padding:9px;border:1px solid #ccc;border-radius:10px;background:#fff}
+.mh{font-weight:700;color:var(--g);margin:16px 4px 0}.tag{display:inline-block;background:var(--a);color:#fff;border-radius:6px;padding:1px 6px;font-size:11px}
+dialog{border:0;border-radius:16px;width:min(94vw,520px);padding:16px}dialog::backdrop{background:#0006}
+.day{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid #eee}.day button{font-size:13px}
+a{color:var(--g)}
+</style></head><body>
+<header><div class="b">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div><h1>Bismillah, Rafeh — your Planner</h1></header>
+<main id="v"></main>
+<nav><button data-t="plans" class="on">🗓 Plans</button><button data-t="ideas">✈️ Ideas</button><button data-t="days">⭐ Pick a day</button><button data-t="more">⋯ More</button></nav>
+<dialog id="dlg"><form id="f" method="dialog">
+<h3 id="ft">Plan</h3><input type="hidden" name="id">
+<label>Title<input name="title" required></label><label>Place<input name="place" placeholder="City, Country"></label>
+<div class="row"><div style="flex:1"><label>Date<input type="date" name="date"></label></div><div style="flex:1"><label>Time<input type="time" name="time"></label></div></div>
+<div class="row"><button type="button" class="btn s" id="pickday">⭐ Pick a day</button></div>
+<label>Link<input name="link" type="url"></label><label>Notes<textarea name="notes" rows="3"></textarea></label>
+<div class="row"><button class="btn" value="save">Save</button><button class="btn s" value="cancel" formnovalidate>Cancel</button><button type="button" class="btn d" id="del">Delete</button></div>
+</form></dialog>
+<script>
+const PRAYER_APP='https://mrbugimposter3-ship-it.github.io/prayer-scroll-europe/';
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LS=k=>JSON.parse(localStorage.getItem(k)||'null'),SS=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const SEED=[{id:'ski-mslm',title:'⛷️ Skiing — Mount St. Louis Moonstone',place:'Mount St. Louis Moonstone, Ontario, Canada',date:'2027-02-15',time:'09:00',
+ link:'https://www.mountstlouis.com/',lat:44.62,lon:-79.63,tz:'America/Toronto',
+ notes:'Family Day 2027 (Mon Feb 15): resort lists 9am–9pm. 2026/27 season opens Dec 24 (Dec 25 closed); season usually runs Dec → end of March Break, weather permitting.'}];
+let plans=LS('plans')||SEED;if(!LS('plans'))SS('plans',plans);
+const save=()=>SS('plans',plans);
+
+/* ---- Prayer times (PrayTimes.org-style math, MWL: Fajr 18°, Isha 17°, standard Asr) ---- */
+const D=Math.PI/180,sin=x=>Math.sin(x*D),cos=x=>Math.cos(x*D),tan=x=>Math.tan(x*D),asin=x=>Math.asin(x)/D,acos=x=>Math.acos(x)/D,atan2=(y,x)=>Math.atan2(y,x)/D,acot=x=>Math.atan(1/x)/D,fix=(a,b)=>((a%b)+b)%b;
+function sun(jd){const d=jd-2451545,g=fix(357.529+.98560028*d,360),q=fix(280.459+.98564736*d,360),L=fix(q+1.915*sin(g)+.02*sin(2*g),360),e=23.439-.00000036*d;
+ const RA=fix(atan2(cos(e)*sin(L),cos(L))/15,24);return{dec:asin(sin(e)*sin(L)),eq:q/15-RA}}
+function jdate(y,m,d){if(m<=2){y--;m+=12}const A=Math.floor(y/100),B=2-A+Math.floor(A/4);return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5}
+function tzOff(tz,ds){try{const t=new Date(ds+'T12:00:00Z'),p={};new Intl.DateTimeFormat('en-US',{timeZone:tz,hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(t).forEach(x=>p[x.type]=x.value);
+ return (Date.UTC(+p.year,p.month-1,+p.day,+p.hour,+p.minute)-t)/36e5}catch(e){return null}}
+function prayerTimes(ds,lat,lon,tz){const[y,m,d]=ds.split('-').map(Number),jd=jdate(y,m,d)-lon/360;
+ const noon=t=>12-sun(jd+t/24).eq,at=(ang,t,ccw)=>{const s=sun(jd+t/24),v=acos((-sin(ang)-sin(s.dec)*sin(lat))/(cos(s.dec)*cos(lat)))/15;return noon(t)+(ccw?-v:v)};
+ const asrA=t=>{const s=sun(jd+t/24);return -acot(1+tan(Math.abs(lat-s.dec)))};
+ let r={Fajr:at(18,5,1),Sunrise:at(.833,6,1),Dhuhr:noon(12),Asr:at(asrA(13),13),Sunset:at(.833,18),Isha:at(17,18)};
+ r.Maghrib=r.Sunset;const night=24-(r.Sunset-r.Sunrise); // high-latitude: angle-based fallback
+ if(isNaN(r.Fajr)||r.Sunrise-r.Fajr>18/60*night)r.Fajr=r.Sunrise-18/60*night;if(isNaN(r.Isha)||r.Isha-r.Sunset>17/60*night)r.Isha=r.Sunset+17/60*night;
+ const off=tzOff(tz,ds)??Math.round(lon/15);
+ const out={};for(const k of['Fajr','Dhuhr','Asr','Maghrib','Isha']){let h=r[k];if(isNaN(h)){out[k]='—';continue}h=fix(h-lon/15+off,24);const mm=Math.round(h*60)%1440;out[k]=String(Math.floor(mm/60)).padStart(2,'0')+':'+String(mm%60).padStart(2,'0')}
+ return out}
+
+/* ---- Geocoding (Open-Meteo, no key), cached ---- */
+const gcache=LS('geo')||{};
+async function geocode(place){const k=place.toLowerCase().trim();if(gcache[k])return gcache[k];
+ const parts=place.split(',').map(s=>s.trim()).filter(Boolean);
+ for(const q of parts){try{const j=await (await fetch('https://geocoding-api.open-meteo.com/v1/search?count=5&name='+encodeURIComponent(q))).json();
+  const res=j.results||[];if(!res.length)continue;const rest=parts.join(' ').toLowerCase();const best=res.find(x=>rest.includes((x.country||'').toLowerCase())||rest.includes((x.admin1||'').toLowerCase()))||res[0];
+  const g={lat:best.latitude,lon:best.longitude,tz:best.timezone,label:[best.name,best.admin1,best.country].filter(Boolean).join(', ')};gcache[k]=g;SS('geo',gcache);return g}catch(e){return null}}return null}
+
+/* ---- Special days 2026-27 ---- */
+const DAYS=[
+ ['Winter solstice / first day of winter','2026-12-21','winter'],['Christmas Day','2026-12-25','winter'],['Christmas break (Ontario schools, approx.)','2026-12-19','winter'],
+ ['New Year’s Day','2027-01-01','winter'],['Opposite Day','2027-01-25','winter'],['Ramadan begins (approx.)','2027-02-08','winter'],
+ ['Family Day (Ontario, 3rd Mon Feb)','2027-02-15','winter'],['Eid al-Fitr (approx.)','2027-03-10','spring'],['March Break (Ontario, approx.)','2027-03-15','spring'],
+ ['First day of spring (equinox)','2027-03-20','spring'],['Good Friday long weekend','2027-03-26','spring'],['Eid al-Adha (approx.)','2027-05-16','spring'],
+ ['Victoria Day long weekend','2027-05-24','spring'],['First day of summer (solstice)','2027-06-21','summer'],['Canada Day','2027-07-01','summer'],
+ ['Civic Holiday long weekend','2027-08-02','summer'],['Labour Day long weekend','2027-09-06','summer'],['First day of fall (equinox)','2027-09-23','fall'],
+ ['Thanksgiving long weekend (Canada)','2027-10-11','fall']];
+const fmtD=ds=>ds?new Date(ds+'T12:00').toLocaleDateString('en-CA',{weekday:'short',month:'short',day:'numeric',year:'numeric'}):'No date';
+const seasonOf=ds=>{const m=+ds.slice(5,7);return m==12||m<3?'winter':m<6?'spring':m<9?'summer':'fall'};
+
+/* ---- Views ---- */
+let tab='plans',ideas=null,pickCb=null;
+async function loadIdeas(){try{ideas=await (await fetch('ideas.json?'+Date.now())).json()}catch(e){ideas=ideas||{updated:'offline',ideas:[]}}}
+function planCard(p){return `<div class="card" data-id="${p.id}"><h3>${esc(p.title)}</h3>
+ <div class="mut">${esc(fmtD(p.date))}${p.time?' · '+esc(p.time):''}${p.place?' · 📍 '+esc(p.place):''}</div>
+ ${p.notes?`<div style="margin-top:6px">${esc(p.notes)}</div>`:''}<div class="ptbox"></div>
+ <div class="row">${p.link?`<a class="btn s" href="${esc(p.link)}" target="_blank" rel="noopener">Website</a>`:''}
+ ${p.place?`<a class="btn s" href="${PRAYER_APP}" target="_blank" rel="noopener">🕌 Prayer Scroll</a>`:''}
+ <button class="btn" onclick="edit('${p.id}')">Edit</button></div></div>`}
+async function fillPrayer(el,p){if(!p.place||!p.date)return;const box=el.querySelector('.ptbox');box.innerHTML='<div class="mut">Prayer times…</div>';
+ let g=p.lat!=null?{lat:p.lat,lon:p.lon,tz:p.tz}:await geocode(p.place);if(!g){box.innerHTML='<div class="mut">Couldn’t find this place for prayer times.</div>';return}
+ const t=prayerTimes(p.date,g.lat,g.lon,g.tz);box.innerHTML=`<div class="pt">${Object.entries(t).map(([k,v])=>`<div>${k}<b>${v}</b></div>`).join('')}</div><div class="mut" style="font-size:11px;margin-top:3px">MWL method, local time (${esc(g.tz||'approx.')})</div>`}
+function render(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==tab));const v=$('#v');
+ if(tab=='plans'){const s=[...plans].sort((a,b)=>(a.date||'9')+(a.time||'')<(b.date||'9')+(b.time||'')?-1:1);let h='<div class="row"><button class="btn" onclick="edit()">＋ New plan</button></div>',lm='';
+  for(const p of s){const m=p.date?new Date(p.date+'T12:00').toLocaleDateString('en-CA',{month:'long',year:'numeric'}):'Undated';if(m!=lm){h+=`<div class="mh">${m}</div>`;lm=m}h+=planCard(p)}
+  v.innerHTML=h+(plans.length?'':'<p class="mut">No plans yet.</p>');s.forEach(p=>fillPrayer(v.querySelector(`[data-id="${p.id}"]`),p))}
+ if(tab=='ideas'){const want=window._season;v.innerHTML=`<div class="mut">Ideas updated ${esc(ideas?.updated)}${want?` · showing <b>${want}</b> first <a href="#" onclick="window._season=null;render();return false">(all)</a>`:''}</div>`+
+  (ideas?.ideas||[]).slice().sort((a,b)=>(b.season==want)-(a.season==want)).map(i=>`<div class="card"><h3>${esc(i.name)} <span class="mut">${esc(i.country)}</span> <span class="tag">${esc(i.season)}</span></h3>
+  <div>${esc(i.note)}</div><div class="row"><button class="btn" onclick="addIdea('${esc(i.id)}')">＋ Add to plan</button><a class="btn s" href="${esc(i.link)}" target="_blank" rel="noopener">Expedia</a></div></div>`).join('')}
+ if(tab=='days'){v.innerHTML='<p class="mut">Tap a day to start a plan on it. Islamic dates are approximate (moon sighting).</p>'+daysList()}
+ if(tab=='more'){v.innerHTML=`<div class="card"><h3>Backup</h3><div class="row"><button class="btn" onclick="exp()">Export JSON</button><label class="btn s" style="margin:0;color:#222">Import JSON<input type="file" accept=".json" hidden onchange="imp(this)"></label></div></div>
+  <div class="card"><h3>Prayer times</h3><div class="mut">Computed offline (MWL 18°/17°, standard Asr) — Boran4Law’s <a href="${PRAYER_APP}" target="_blank">Prayer Scroll · Europe</a> uses the Aladhan API live. Always check your local masjid.</div></div>`}}
+function daysList(){return `<div class="card">${DAYS.map(([n,d])=>`<div class="day"><div>${esc(n)}<div class="mut">${fmtD(d)}</div></div><button class="btn" onclick="chooseDay('${d}')">Choose</button></div>`).join('')}
+ <div class="day"><div>Custom date…</div><input type="date" style="width:auto" onchange="chooseDay(this.value)"></div></div>`}
+window.chooseDay=d=>{if(!d)return;if(pickCb){const c=pickCb;pickCb=null;$('#pd')?.close();c(d);return}window._season=seasonOf(d);edit(null,{date:d})};
+window.edit=(id,pre={})=>{const p=plans.find(x=>x.id==id)||{...pre},f=$('#f');for(const k of['id','title','place','date','time','link','notes'])f.elements[k].value=p[k]||'';
+ $('#ft').textContent=id?'Edit plan':'New plan';$('#del').style.display=id?'':'none';$('#dlg').showModal()};
+$('#f').addEventListener('submit',e=>{if(e.submitter?.value!='save')return;const f=e.target,o={};for(const k of['id','title','place','date','time','link','notes'])o[k]=f.elements[k].value.trim();
+ const old=plans.find(x=>x.id==o.id);if(old){if(old.place!=o.place){delete old.lat;delete old.lon;delete old.tz}Object.assign(old,o)}else{o.id='p'+Date.now();plans.push(o)}save();
+ if(o.date){window._season=seasonOf(o.date)}tab='plans';render()});
+$('#del').onclick=()=>{if(confirm('Delete this plan?')){plans=plans.filter(x=>x.id!=$('#f').elements.id.value);save();$('#dlg').close();render()}};
+$('#pickday').onclick=()=>{const d=document.createElement('dialog');d.id='pd';d.innerHTML='<h3>Pick a day</h3>'+daysList()+'<div class="row"><button class="btn s" onclick="this.closest(\'dialog\').close()">Close</button></div>';
+ document.body.append(d);d.addEventListener('close',()=>d.remove());pickCb=v=>{$('#f').elements.date.value=v;window._season=seasonOf(v)};d.showModal()};
+window.addIdea=id=>{const i=ideas.ideas.find(x=>x.id==id);edit(null,{title:'✈️ '+i.name,place:i.name+', '+i.country,link:i.link,notes:i.note})};
+window.exp=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(plans,null,1)],{type:'application/json'}));a.download='planner-backup.json';a.click()};
+window.imp=inp=>{const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);if(!Array.isArray(j))throw 0;plans=j;save();tab='plans';render()}catch(e){alert('Not a planner backup')}};r.readAsText(inp.files[0])};
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.t;render()});
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js');
+render();loadIdeas().then(()=>tab=='ideas'&&render());
+</script></body></html>
