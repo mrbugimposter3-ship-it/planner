@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-14",
+  "updated": "2026-10-16",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
     {"id":"istanbul","name":"Istanbul","country":"Türkiye","lat":41.0082,"lon":28.9784,"season":"fall","note":"Blue Mosque, Süleymaniye and the Bosphorus; mild autumn weather.","link":"https://www.expedia.com/Hotel-Search?destination=Istanbul%2C%20Turkey"},
@@ -17,6 +17,9 @@
     {"id":"niagara","name":"Niagara Falls","country":"Canada","lat":43.0896,"lon":-79.0849,"season":"summer","note":"Easy family day trip from Toronto.","link":"https://www.expedia.com/Hotel-Search?destination=Niagara%20Falls%2C%20Canada"},
     {"id":"marrakech","name":"Marrakech","country":"Morocco","lat":31.6295,"lon":-7.9811,"season":"spring","note":"Koutoubia Mosque and souks; avoid peak summer heat.","link":"https://www.expedia.com/Hotel-Search?destination=Marrakech%2C%20Morocco"},
     {"id":"kualalumpur","name":"Kuala Lumpur","country":"Malaysia","lat":3.1390,"lon":101.6869,"season":"any","note":"Masjid Negara, Petronas Towers, great halal food.","link":"https://www.expedia.com/Hotel-Search?destination=Kuala%20Lumpur%2C%20Malaysia"},
-    {"id":"tremblant","name":"Mont-Tremblant","country":"Canada","lat":46.2098,"lon":-74.5850,"season":"fall","note":"Fall colours in October, skiing in winter.","link":"https://www.expedia.com/Hotel-Search?destination=Mont-Tremblant%2C%20Canada"}
+    {"id":"tremblant","name":"Mont-Tremblant","country":"Canada","lat":46.2098,"lon":-74.5850,"season":"fall","note":"Fall colours in October, skiing in winter.","link":"https://www.expedia.com/Hotel-Search?destination=Mont-Tremblant%2C%20Canada"},
+    {"id":"seville","name":"Seville","country":"Spain","lat":37.3891,"lon":-5.9845,"season":"fall","note":"Real Alcázar and the Giralda (a former minaret); warm, uncrowded autumn days.","link":"https://www.expedia.com/Hotel-Search?destination=Seville%2C%20Spain"},
+    {"id":"abudhabi","name":"Abu Dhabi","country":"United Arab Emirates","lat":24.4539,"lon":54.3773,"season":"winter","note":"Sheikh Zayed Grand Mosque and Louvre Abu Dhabi; pleasant weather Nov–Mar, halal everywhere.","link":"https://www.expedia.com/Hotel-Search?destination=Abu%20Dhabi%2C%20United%20Arab%20Emirates"},
+    {"id":"bursa","name":"Bursa","country":"Türkiye","lat":40.1826,"lon":29.0665,"season":"winter","note":"Ulu Camii and Ottoman-era hammams, plus skiing on nearby Uludağ.","link":"https://www.expedia.com/Hotel-Search?destination=Bursa%2C%20Turkey"}
   ]
 }
