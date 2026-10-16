@@ -23,13 +23,13 @@ a{color:var(--g)}
 </style></head><body>
 <header><div class="b">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div><h1>Bismillah, Rafeh — your Planner</h1></header>
 <main id="v"></main>
-<nav><button data-t="plans" class="on">🗓 Plans</button><button data-t="ideas">✈️ Ideas</button><button data-t="days">⭐ Pick a day</button><button data-t="more">⋯ More</button></nav>
+<nav><button data-t="plans" class="on">🗓 Plans</button><button data-t="ideas">✈️ Ideas</button><button data-t="days">⭐ Pick a day</button><button data-t="care">💆 Self-care</button><button data-t="more">⋯ More</button></nav>
 <dialog id="dlg"><form id="f" method="dialog">
 <h3 id="ft">Plan</h3><input type="hidden" name="id">
 <label>Title<input name="title" required></label><label>Place<input name="place" placeholder="City, Country"></label>
 <div class="row"><div style="flex:1"><label>Date<input type="date" name="date"></label></div><div style="flex:1"><label>Time<input type="time" name="time"></label></div></div>
 <div class="row"><button type="button" class="btn s" id="pickday">⭐ Pick a day</button></div>
-<label>Link<input name="link" type="url"></label><label>Notes<textarea name="notes" rows="3"></textarea></label>
+<label>Category<select name="category"><option>General</option><option>Trip</option><option>Self-care</option><option>Family</option><option>Work</option><option>Worship</option></select></label><label>Repeat<select name="repeat"><option value="">No repeat</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="hijri">Hijri months (17/19/21 hijama)</option></select></label><label>Link<input name="link" type="url"></label><label>Notes<textarea name="notes" rows="3"></textarea></label>
 <div class="row"><button class="btn" value="save">Save</button><button class="btn s" value="cancel" formnovalidate>Cancel</button><button type="button" class="btn d" id="del">Delete</button></div>
 </form></dialog>
 <script>
@@ -38,7 +38,7 @@ const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>(
 const LS=k=>JSON.parse(localStorage.getItem(k)||'null'),SS=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 const SEED=[{id:'ski-mslm',title:'⛷️ Skiing — Mount St. Louis Moonstone',place:'Mount St. Louis Moonstone, Ontario, Canada',date:'2027-02-15',time:'09:00',
  link:'https://www.mountstlouis.com/',lat:44.62,lon:-79.63,tz:'America/Toronto',
- notes:'Family Day 2027 (Mon Feb 15): resort lists 9am–9pm. 2026/27 season opens Dec 24 (Dec 25 closed); season usually runs Dec → end of March Break, weather permitting.'}];
+ category:'Trip',notes:'Family Day 2027 (Mon Feb 15). Mount St. Louis Moonstone, 24 Mount St. Louis Rd, Coldwater/Moonstone ON — 35 slopes, 170 skiable acres. Season usually mid-December → late March (after March Break), weather permitting; check mountain status before driving.'}];
 let plans=LS('plans')||SEED;if(!LS('plans'))SS('plans',plans);
 const save=()=>SS('plans',plans);
 
@@ -83,7 +83,7 @@ const seasonOf=ds=>{const m=+ds.slice(5,7);return m==12||m<3?'winter':m<6?'sprin
 let tab='plans',ideas=null,pickCb=null;
 async function loadIdeas(){try{ideas=await (await fetch('ideas.json?'+Date.now())).json()}catch(e){ideas=ideas||{updated:'offline',ideas:[]}}}
 function planCard(p){return `<div class="card" data-id="${p.id}"><h3>${esc(p.title)}</h3>
- <div class="mut">${esc(fmtD(p.date))}${p.time?' · '+esc(p.time):''}${p.place?' · 📍 '+esc(p.place):''}</div>
+ <div class="mut">${esc(fmtD(p.date))}${p.time?' · '+esc(p.time):''}${p.place?' · 📍 '+esc(p.place):''} ${p.category?`<span class="tag">${esc(p.category)}</span>`:''}${p.repeat?' 🔁':''}</div>
  ${p.notes?`<div style="margin-top:6px">${esc(p.notes)}</div>`:''}<div class="ptbox"></div>
  <div class="row">${p.link?`<a class="btn s" href="${esc(p.link)}" target="_blank" rel="noopener">Website</a>`:''}
  ${p.place?`<a class="btn s" href="${PRAYER_APP}" target="_blank" rel="noopener">🕌 Prayer Scroll</a>`:''}
@@ -92,21 +92,46 @@ async function fillPrayer(el,p){if(!p.place||!p.date)return;const box=el.querySe
  let g=p.lat!=null?{lat:p.lat,lon:p.lon,tz:p.tz}:await geocode(p.place);if(!g){box.innerHTML='<div class="mut">Couldn’t find this place for prayer times.</div>';return}
  const t=prayerTimes(p.date,g.lat,g.lon,g.tz);box.innerHTML=`<div class="pt">${Object.entries(t).map(([k,v])=>`<div>${k}<b>${v}</b></div>`).join('')}</div><div class="mut" style="font-size:11px;margin-top:3px">MWL method, local time (${esc(g.tz||'approx.')})</div>`}
 function render(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==tab));const v=$('#v');
- if(tab=='plans'){const s=[...plans].sort((a,b)=>(a.date||'9')+(a.time||'')<(b.date||'9')+(b.time||'')?-1:1);let h='<div class="row"><button class="btn" onclick="edit()">＋ New plan</button></div>',lm='';
+ if(tab=='plans'&&window._cal){v.innerHTML='<div class="row"><button class="btn s" onclick="_cal=0;render()">☰ Agenda</button><button class="btn" onclick="edit()">＋ New plan</button></div>'+calHTML();return}
+ if(tab=='plans'){const s=[...plans].sort((a,b)=>(a.date||'9')+(a.time||'')<(b.date||'9')+(b.time||'')?-1:1);let h='<div class="row"><button class="btn" onclick="edit()">＋ New plan</button><button class="btn s" onclick="_cal=1;render()">📅 Calendar</button></div>',lm='';
   for(const p of s){const m=p.date?new Date(p.date+'T12:00').toLocaleDateString('en-CA',{month:'long',year:'numeric'}):'Undated';if(m!=lm){h+=`<div class="mh">${m}</div>`;lm=m}h+=planCard(p)}
   v.innerHTML=h+(plans.length?'':'<p class="mut">No plans yet.</p>');s.forEach(p=>fillPrayer(v.querySelector(`[data-id="${p.id}"]`),p))}
  if(tab=='ideas'){const want=window._season;v.innerHTML=`<div class="mut">Ideas updated ${esc(ideas?.updated)}${want?` · showing <b>${want}</b> first <a href="#" onclick="window._season=null;render();return false">(all)</a>`:''}</div>`+
   (ideas?.ideas||[]).slice().sort((a,b)=>(b.season==want)-(a.season==want)).map(i=>`<div class="card"><h3>${esc(i.name)} <span class="mut">${esc(i.country)}</span> <span class="tag">${esc(i.season)}</span></h3>
   <div>${esc(i.note)}</div><div class="row"><button class="btn" onclick="addIdea('${esc(i.id)}')">＋ Add to plan</button><a class="btn s" href="${esc(i.link)}" target="_blank" rel="noopener">Expedia</a></div></div>`).join('')}
  if(tab=='days'){v.innerHTML='<p class="mut">Tap a day to start a plan on it. Islamic dates are approximate (moon sighting).</p>'+daysList()}
+ if(tab=='care')v.innerHTML=careHTML();
  if(tab=='more'){v.innerHTML=`<div class="card"><h3>Backup</h3><div class="row"><button class="btn" onclick="exp()">Export JSON</button><label class="btn s" style="margin:0;color:#222">Import JSON<input type="file" accept=".json" hidden onchange="imp(this)"></label></div></div>
   <div class="card"><h3>Prayer times</h3><div class="mut">Computed offline (MWL 18°/17°, standard Asr) — Boran4Law’s <a href="${PRAYER_APP}" target="_blank">Prayer Scroll · Europe</a> uses the Aladhan API live. Always check your local masjid.</div></div>`}}
+let calM=new Date();calM.setDate(1);
+function calHTML(){const y=calM.getFullYear(),m=calM.getMonth(),first=(new Date(y,m,1).getDay()),n=new Date(y,m+1,0).getDate(),pd=k=>String(k).padStart(2,'0');
+ let h=`<div class="card"><div class="row" style="justify-content:space-between;align-items:center"><button class="btn s" onclick="calM.setMonth(calM.getMonth()-1);render()">‹</button><b>${calM.toLocaleDateString('en-CA',{month:'long',year:'numeric'})}</b><button class="btn s" onclick="calM.setMonth(calM.getMonth()+1);render()">›</button></div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:8px;font-size:12px;text-align:center">`+'SMTWTFS'.split('').map(c=>`<b>${c}</b>`).join('')+'<div></div>'.repeat(first);
+ for(let d=1;d<=n;d++){const ds=`${y}-${pd(m+1)}-${pd(d)}`,ps=plans.filter(p=>p.date==ds);h+=`<div onclick="${ps.length?`edit('${ps[0].id}')`:`edit(null,{date:'${ds}'})`}" style="min-height:44px;border-radius:8px;padding:3px;background:${ps.length?'#e9f2ef':'#fafafa'}">${d}${ps.map(p=>`<div style="font-size:9px;overflow:hidden;white-space:nowrap;color:var(--g)">${esc(p.title)}</div>`).join('')}</div>`}
+ return h+'</div></div>'}
+/* ---- Self-care: Sunnah hijama on 17/19/21 Hijri via Intl islamic-umalqura ---- */
+const hParts=dt=>{const p={};new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'}).formatToParts(dt).forEach(x=>p[x.type]=x.value);return p};
+const iso=dt=>dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+function hijamaDays(count){const out=[],dt=new Date();dt.setHours(12,0,0,0);for(let i=0;i<400&&out.length<count;i++){const p=hParts(dt);if(['17','19','21'].includes(p.day))out.push({ds:iso(dt),h:`${p.day} ${p.month} ${p.year} AH`});dt.setDate(dt.getDate()+1)}return out}
+const MAPS=q=>'https://www.google.com/maps/search/'+encodeURIComponent(q+' near me');
+function careHTML(){let ok=true;try{hParts(new Date())}catch(e){ok=false}
+ const hj=ok?hijamaDays(9):[];return `<div class="card"><h3>Quick add</h3><div class="row">
+ <button class="btn" onclick="careAdd('🩸 Sunnah hijama','${hj[0]?.ds||''}','hijri')">🩸 Hijama</button><button class="btn" onclick="careAdd('💆 Massage','','monthly')">💆 Massage</button><button class="btn" onclick="careAdd('🧖 Men’s spa','','monthly')">🧖 Men’s spa</button></div>
+ <div class="row"><a class="btn s" target="_blank" rel="noopener" href="${MAPS('hijama cupping')}">📍 Hijama near me</a><a class="btn s" target="_blank" rel="noopener" href="${MAPS('massage therapy')}">📍 Massage near me</a><a class="btn s" target="_blank" rel="noopener" href="${MAPS('men\'s spa')}">📍 Men’s spa near me</a></div></div>
+ <div class="card"><h3>Sunnah hijama days</h3><div class="mut">17th, 19th &amp; 21st of each Hijri month (Umm al-Qura calendar; local moon sighting may shift by a day).</div>
+ ${hj.map(x=>`<div class="day"><div>${fmtD(x.ds)}<div class="mut">${x.h}</div></div><button class="btn" onclick="careAdd('🩸 Sunnah hijama','${x.ds}','')">Add</button></div>`).join('')||'<p class="mut">Hijri calendar not supported on this device.</p>'}</div>
+ <div class="card"><h3>Upcoming self-care</h3>${plans.filter(p=>p.category=='Self-care').map(p=>`<div class="day"><div>${esc(p.title)}<div class="mut">${fmtD(p.date)}${p.repeat?' · 🔁 '+p.repeat:''}</div></div><button class="btn s" onclick="edit('${p.id}')">Edit</button></div>`).join('')||'<p class="mut">None yet.</p>'}</div>`}
+window.careAdd=(t,ds,rep)=>edit(null,{title:t,date:ds,category:'Self-care',repeat:rep,time:'10:00'});
+/* recurring: when a repeating plan's date passes, roll it forward */
+function rollRepeats(){const today=iso(new Date());let ch=0;for(const p of plans){if(!p.repeat||!p.date||p.date>=today)continue;
+ if(p.repeat=='hijri'){const n=hijamaDays(1)[0];if(n){p.date=n.ds;ch=1}continue}
+ const d=new Date(p.date+'T12:00');while(iso(d)<today){p.repeat=='weekly'?d.setDate(d.getDate()+7):d.setMonth(d.getMonth()+1)}p.date=iso(d);ch=1}if(ch)save()}
+try{rollRepeats()}catch(e){}
 function daysList(){return `<div class="card">${DAYS.map(([n,d])=>`<div class="day"><div>${esc(n)}<div class="mut">${fmtD(d)}</div></div><button class="btn" onclick="chooseDay('${d}')">Choose</button></div>`).join('')}
  <div class="day"><div>Custom date…</div><input type="date" style="width:auto" onchange="chooseDay(this.value)"></div></div>`}
 window.chooseDay=d=>{if(!d)return;if(pickCb){const c=pickCb;pickCb=null;$('#pd')?.close();c(d);return}window._season=seasonOf(d);edit(null,{date:d})};
-window.edit=(id,pre={})=>{const p=plans.find(x=>x.id==id)||{...pre},f=$('#f');for(const k of['id','title','place','date','time','link','notes'])f.elements[k].value=p[k]||'';
+window.edit=(id,pre={})=>{const p=plans.find(x=>x.id==id)||{...pre},f=$('#f');for(const k of['id','title','place','date','time','category','repeat','link','notes'])f.elements[k].value=p[k]||'';
  $('#ft').textContent=id?'Edit plan':'New plan';$('#del').style.display=id?'':'none';$('#dlg').showModal()};
-$('#f').addEventListener('submit',e=>{if(e.submitter?.value!='save')return;const f=e.target,o={};for(const k of['id','title','place','date','time','link','notes'])o[k]=f.elements[k].value.trim();
+$('#f').addEventListener('submit',e=>{if(e.submitter?.value!='save')return;const f=e.target,o={};for(const k of['id','title','place','date','time','category','repeat','link','notes'])o[k]=f.elements[k].value.trim();
  const old=plans.find(x=>x.id==o.id);if(old){if(old.place!=o.place){delete old.lat;delete old.lon;delete old.tz}Object.assign(old,o)}else{o.id='p'+Date.now();plans.push(o)}save();
  if(o.date){window._season=seasonOf(o.date)}tab='plans';render()});
 $('#del').onclick=()=>{if(confirm('Delete this plan?')){plans=plans.filter(x=>x.id!=$('#f').elements.id.value);save();$('#dlg').close();render()}};
