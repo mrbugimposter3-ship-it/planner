@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-16",
+  "updated": "2026-10-17",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
     {"id":"istanbul","name":"Istanbul","country":"Türkiye","lat":41.0082,"lon":28.9784,"season":"fall","note":"Blue Mosque, Süleymaniye and the Bosphorus; mild autumn weather.","link":"https://www.expedia.com/Hotel-Search?destination=Istanbul%2C%20Turkey"},
@@ -20,6 +20,9 @@
     {"id":"tremblant","name":"Mont-Tremblant","country":"Canada","lat":46.2098,"lon":-74.5850,"season":"fall","note":"Fall colours in October, skiing in winter.","link":"https://www.expedia.com/Hotel-Search?destination=Mont-Tremblant%2C%20Canada"},
     {"id":"seville","name":"Seville","country":"Spain","lat":37.3891,"lon":-5.9845,"season":"fall","note":"Real Alcázar and the Giralda (a former minaret); warm, uncrowded autumn days.","link":"https://www.expedia.com/Hotel-Search?destination=Seville%2C%20Spain"},
     {"id":"abudhabi","name":"Abu Dhabi","country":"United Arab Emirates","lat":24.4539,"lon":54.3773,"season":"winter","note":"Sheikh Zayed Grand Mosque and Louvre Abu Dhabi; pleasant weather Nov–Mar, halal everywhere.","link":"https://www.expedia.com/Hotel-Search?destination=Abu%20Dhabi%2C%20United%20Arab%20Emirates"},
-    {"id":"bursa","name":"Bursa","country":"Türkiye","lat":40.1826,"lon":29.0665,"season":"winter","note":"Ulu Camii and Ottoman-era hammams, plus skiing on nearby Uludağ.","link":"https://www.expedia.com/Hotel-Search?destination=Bursa%2C%20Turkey"}
+    {"id":"bursa","name":"Bursa","country":"Türkiye","lat":40.1826,"lon":29.0665,"season":"winter","note":"Ulu Camii and Ottoman-era hammams, plus skiing on nearby Uludağ.","link":"https://www.expedia.com/Hotel-Search?destination=Bursa%2C%20Turkey"},
+    {"id":"vienna","name":"Vienna","country":"Austria","lat":48.2082,"lon":16.3738,"season":"winter","note":"Christmas markets at Rathausplatz and Schönbrunn from mid-November, plus the Imperial Palace and grand coffee houses.","link":"https://www.expedia.com/Hotel-Search?destination=Vienna%2C%20Austria"},
+    {"id":"doha","name":"Doha","country":"Qatar","lat":25.2854,"lon":51.531,"season":"winter","note":"Museum of Islamic Art, Souq Waqif and the Corniche; cool, sunny Nov–Mar and fully halal.","link":"https://www.expedia.com/Hotel-Search?destination=Doha%2C%20Qatar"},
+    {"id":"penang","name":"Penang","country":"Malaysia","lat":5.4141,"lon":100.3288,"season":"winter","note":"George Town's heritage streets, Kapitan Keling Mosque and famous halal street food; driest Dec–Feb.","link":"https://www.expedia.com/Hotel-Search?destination=Penang%2C%20Malaysia"}
   ]
 }
