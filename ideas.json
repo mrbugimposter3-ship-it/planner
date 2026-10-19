@@ -1,28 +1,256 @@
 {
-  "updated": "2026-10-17",
+  "updated": "2026-10-19",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
-    {"id":"istanbul","name":"Istanbul","country":"Türkiye","lat":41.0082,"lon":28.9784,"season":"fall","note":"Blue Mosque, Süleymaniye and the Bosphorus; mild autumn weather.","link":"https://www.expedia.com/Hotel-Search?destination=Istanbul%2C%20Turkey"},
-    {"id":"granada","name":"Granada","country":"Spain","lat":37.1773,"lon":-3.5986,"season":"spring","note":"Alhambra palace and the Albaicín quarter; spring gardens.","link":"https://www.expedia.com/Hotel-Search?destination=Granada%2C%20Spain"},
-    {"id":"cordoba","name":"Córdoba","country":"Spain","lat":37.8882,"lon":-4.7794,"season":"spring","note":"The Mezquita and the May patios festival.","link":"https://www.expedia.com/Hotel-Search?destination=Cordoba%2C%20Spain"},
-    {"id":"sarajevo","name":"Sarajevo","country":"Bosnia and Herzegovina","lat":43.8563,"lon":18.4131,"season":"summer","note":"Baščaršija bazaar and Gazi Husrev-beg Mosque; halal food everywhere.","link":"https://www.expedia.com/Hotel-Search?destination=Sarajevo%2C%20Bosnia%20and%20Herzegovina"},
-    {"id":"mostar","name":"Mostar","country":"Bosnia and Herzegovina","lat":43.3438,"lon":17.8078,"season":"summer","note":"Stari Most bridge over the Neretva.","link":"https://www.expedia.com/Hotel-Search?destination=Mostar%2C%20Bosnia%20and%20Herzegovina"},
-    {"id":"zermatt","name":"Zermatt","country":"Switzerland","lat":46.0207,"lon":7.7491,"season":"winter","note":"Car-free ski village under the Matterhorn.","link":"https://www.expedia.com/Hotel-Search?destination=Zermatt%2C%20Switzerland"},
-    {"id":"innsbruck","name":"Innsbruck","country":"Austria","lat":47.2692,"lon":11.4041,"season":"winter","note":"Alpine city with ski areas a short tram/bus away.","link":"https://www.expedia.com/Hotel-Search?destination=Innsbruck%2C%20Austria"},
-    {"id":"london","name":"London","country":"United Kingdom","lat":51.5072,"lon":-0.1276,"season":"summer","note":"Museums, parks and East London Mosque.","link":"https://www.expedia.com/Hotel-Search?destination=London%2C%20United%20Kingdom"},
-    {"id":"lisbon","name":"Lisbon","country":"Portugal","lat":38.7223,"lon":-9.1393,"season":"spring","note":"Hills, trams and Atlantic light.","link":"https://www.expedia.com/Hotel-Search?destination=Lisbon%2C%20Portugal"},
-    {"id":"reykjavik","name":"Reykjavík","country":"Iceland","lat":64.1466,"lon":-21.9426,"season":"winter","note":"Northern lights; very short winter days (check prayer times!).","link":"https://www.expedia.com/Hotel-Search?destination=Reykjavik%2C%20Iceland"},
-    {"id":"quebec","name":"Québec City","country":"Canada","lat":46.8139,"lon":-71.2080,"season":"winter","note":"Winter Carnival (Feb) and old-town walls.","link":"https://www.expedia.com/Hotel-Search?destination=Quebec%20City%2C%20Canada"},
-    {"id":"banff","name":"Banff","country":"Canada","lat":51.1784,"lon":-115.5708,"season":"winter","note":"Rockies skiing; Lake Louise in summer.","link":"https://www.expedia.com/Hotel-Search?destination=Banff%2C%20Canada"},
-    {"id":"niagara","name":"Niagara Falls","country":"Canada","lat":43.0896,"lon":-79.0849,"season":"summer","note":"Easy family day trip from Toronto.","link":"https://www.expedia.com/Hotel-Search?destination=Niagara%20Falls%2C%20Canada"},
-    {"id":"marrakech","name":"Marrakech","country":"Morocco","lat":31.6295,"lon":-7.9811,"season":"spring","note":"Koutoubia Mosque and souks; avoid peak summer heat.","link":"https://www.expedia.com/Hotel-Search?destination=Marrakech%2C%20Morocco"},
-    {"id":"kualalumpur","name":"Kuala Lumpur","country":"Malaysia","lat":3.1390,"lon":101.6869,"season":"any","note":"Masjid Negara, Petronas Towers, great halal food.","link":"https://www.expedia.com/Hotel-Search?destination=Kuala%20Lumpur%2C%20Malaysia"},
-    {"id":"tremblant","name":"Mont-Tremblant","country":"Canada","lat":46.2098,"lon":-74.5850,"season":"fall","note":"Fall colours in October, skiing in winter.","link":"https://www.expedia.com/Hotel-Search?destination=Mont-Tremblant%2C%20Canada"},
-    {"id":"seville","name":"Seville","country":"Spain","lat":37.3891,"lon":-5.9845,"season":"fall","note":"Real Alcázar and the Giralda (a former minaret); warm, uncrowded autumn days.","link":"https://www.expedia.com/Hotel-Search?destination=Seville%2C%20Spain"},
-    {"id":"abudhabi","name":"Abu Dhabi","country":"United Arab Emirates","lat":24.4539,"lon":54.3773,"season":"winter","note":"Sheikh Zayed Grand Mosque and Louvre Abu Dhabi; pleasant weather Nov–Mar, halal everywhere.","link":"https://www.expedia.com/Hotel-Search?destination=Abu%20Dhabi%2C%20United%20Arab%20Emirates"},
-    {"id":"bursa","name":"Bursa","country":"Türkiye","lat":40.1826,"lon":29.0665,"season":"winter","note":"Ulu Camii and Ottoman-era hammams, plus skiing on nearby Uludağ.","link":"https://www.expedia.com/Hotel-Search?destination=Bursa%2C%20Turkey"},
-    {"id":"vienna","name":"Vienna","country":"Austria","lat":48.2082,"lon":16.3738,"season":"winter","note":"Christmas markets at Rathausplatz and Schönbrunn from mid-November, plus the Imperial Palace and grand coffee houses.","link":"https://www.expedia.com/Hotel-Search?destination=Vienna%2C%20Austria"},
-    {"id":"doha","name":"Doha","country":"Qatar","lat":25.2854,"lon":51.531,"season":"winter","note":"Museum of Islamic Art, Souq Waqif and the Corniche; cool, sunny Nov–Mar and fully halal.","link":"https://www.expedia.com/Hotel-Search?destination=Doha%2C%20Qatar"},
-    {"id":"penang","name":"Penang","country":"Malaysia","lat":5.4141,"lon":100.3288,"season":"winter","note":"George Town's heritage streets, Kapitan Keling Mosque and famous halal street food; driest Dec–Feb.","link":"https://www.expedia.com/Hotel-Search?destination=Penang%2C%20Malaysia"}
+    {
+      "id": "istanbul",
+      "name": "Istanbul",
+      "country": "Türkiye",
+      "lat": 41.0082,
+      "lon": 28.9784,
+      "season": "fall",
+      "note": "Blue Mosque, Süleymaniye and the Bosphorus; mild autumn weather.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Istanbul%2C%20Turkey"
+    },
+    {
+      "id": "granada",
+      "name": "Granada",
+      "country": "Spain",
+      "lat": 37.1773,
+      "lon": -3.5986,
+      "season": "spring",
+      "note": "Alhambra palace and the Albaicín quarter; spring gardens.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Granada%2C%20Spain"
+    },
+    {
+      "id": "cordoba",
+      "name": "Córdoba",
+      "country": "Spain",
+      "lat": 37.8882,
+      "lon": -4.7794,
+      "season": "spring",
+      "note": "The Mezquita and the May patios festival.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Cordoba%2C%20Spain"
+    },
+    {
+      "id": "sarajevo",
+      "name": "Sarajevo",
+      "country": "Bosnia and Herzegovina",
+      "lat": 43.8563,
+      "lon": 18.4131,
+      "season": "summer",
+      "note": "Baščaršija bazaar and Gazi Husrev-beg Mosque; halal food everywhere.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Sarajevo%2C%20Bosnia%20and%20Herzegovina"
+    },
+    {
+      "id": "mostar",
+      "name": "Mostar",
+      "country": "Bosnia and Herzegovina",
+      "lat": 43.3438,
+      "lon": 17.8078,
+      "season": "summer",
+      "note": "Stari Most bridge over the Neretva.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Mostar%2C%20Bosnia%20and%20Herzegovina"
+    },
+    {
+      "id": "zermatt",
+      "name": "Zermatt",
+      "country": "Switzerland",
+      "lat": 46.0207,
+      "lon": 7.7491,
+      "season": "winter",
+      "note": "Car-free ski village under the Matterhorn.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Zermatt%2C%20Switzerland"
+    },
+    {
+      "id": "innsbruck",
+      "name": "Innsbruck",
+      "country": "Austria",
+      "lat": 47.2692,
+      "lon": 11.4041,
+      "season": "winter",
+      "note": "Alpine city with ski areas a short tram/bus away.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Innsbruck%2C%20Austria"
+    },
+    {
+      "id": "london",
+      "name": "London",
+      "country": "United Kingdom",
+      "lat": 51.5072,
+      "lon": -0.1276,
+      "season": "summer",
+      "note": "Museums, parks and East London Mosque.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=London%2C%20United%20Kingdom"
+    },
+    {
+      "id": "lisbon",
+      "name": "Lisbon",
+      "country": "Portugal",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "season": "spring",
+      "note": "Hills, trams and Atlantic light.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Lisbon%2C%20Portugal"
+    },
+    {
+      "id": "reykjavik",
+      "name": "Reykjavík",
+      "country": "Iceland",
+      "lat": 64.1466,
+      "lon": -21.9426,
+      "season": "winter",
+      "note": "Northern lights; very short winter days (check prayer times!).",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Reykjavik%2C%20Iceland"
+    },
+    {
+      "id": "quebec",
+      "name": "Québec City",
+      "country": "Canada",
+      "lat": 46.8139,
+      "lon": -71.208,
+      "season": "winter",
+      "note": "Winter Carnival (Feb) and old-town walls.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Quebec%20City%2C%20Canada"
+    },
+    {
+      "id": "banff",
+      "name": "Banff",
+      "country": "Canada",
+      "lat": 51.1784,
+      "lon": -115.5708,
+      "season": "winter",
+      "note": "Rockies skiing; Lake Louise in summer.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Banff%2C%20Canada"
+    },
+    {
+      "id": "niagara",
+      "name": "Niagara Falls",
+      "country": "Canada",
+      "lat": 43.0896,
+      "lon": -79.0849,
+      "season": "summer",
+      "note": "Easy family day trip from Toronto.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Niagara%20Falls%2C%20Canada"
+    },
+    {
+      "id": "marrakech",
+      "name": "Marrakech",
+      "country": "Morocco",
+      "lat": 31.6295,
+      "lon": -7.9811,
+      "season": "spring",
+      "note": "Koutoubia Mosque and souks; avoid peak summer heat.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Marrakech%2C%20Morocco"
+    },
+    {
+      "id": "kualalumpur",
+      "name": "Kuala Lumpur",
+      "country": "Malaysia",
+      "lat": 3.139,
+      "lon": 101.6869,
+      "season": "any",
+      "note": "Masjid Negara, Petronas Towers, great halal food.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Kuala%20Lumpur%2C%20Malaysia"
+    },
+    {
+      "id": "tremblant",
+      "name": "Mont-Tremblant",
+      "country": "Canada",
+      "lat": 46.2098,
+      "lon": -74.585,
+      "season": "fall",
+      "note": "Fall colours in October, skiing in winter.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Mont-Tremblant%2C%20Canada"
+    },
+    {
+      "id": "seville",
+      "name": "Seville",
+      "country": "Spain",
+      "lat": 37.3891,
+      "lon": -5.9845,
+      "season": "fall",
+      "note": "Real Alcázar and the Giralda (a former minaret); warm, uncrowded autumn days.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Seville%2C%20Spain"
+    },
+    {
+      "id": "abudhabi",
+      "name": "Abu Dhabi",
+      "country": "United Arab Emirates",
+      "lat": 24.4539,
+      "lon": 54.3773,
+      "season": "winter",
+      "note": "Sheikh Zayed Grand Mosque and Louvre Abu Dhabi; pleasant weather Nov–Mar, halal everywhere.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Abu%20Dhabi%2C%20United%20Arab%20Emirates"
+    },
+    {
+      "id": "bursa",
+      "name": "Bursa",
+      "country": "Türkiye",
+      "lat": 40.1826,
+      "lon": 29.0665,
+      "season": "winter",
+      "note": "Ulu Camii and Ottoman-era hammams, plus skiing on nearby Uludağ.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Bursa%2C%20Turkey"
+    },
+    {
+      "id": "vienna",
+      "name": "Vienna",
+      "country": "Austria",
+      "lat": 48.2082,
+      "lon": 16.3738,
+      "season": "winter",
+      "note": "Christmas markets at Rathausplatz and Schönbrunn from mid-November, plus the Imperial Palace and grand coffee houses.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Vienna%2C%20Austria"
+    },
+    {
+      "id": "doha",
+      "name": "Doha",
+      "country": "Qatar",
+      "lat": 25.2854,
+      "lon": 51.531,
+      "season": "winter",
+      "note": "Museum of Islamic Art, Souq Waqif and the Corniche; cool, sunny Nov–Mar and fully halal.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Doha%2C%20Qatar"
+    },
+    {
+      "id": "penang",
+      "name": "Penang",
+      "country": "Malaysia",
+      "lat": 5.4141,
+      "lon": 100.3288,
+      "season": "winter",
+      "note": "George Town's heritage streets, Kapitan Keling Mosque and famous halal street food; driest Dec–Feb.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Penang%2C%20Malaysia"
+    },
+    {
+      "id": "valletta",
+      "name": "Valletta",
+      "country": "Malta",
+      "lat": 35.8989,
+      "lon": 14.5146,
+      "season": "fall",
+      "note": "Baroque harbour capital with warm sea into November; day trip to Mdina.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Valletta%2C%20Malta"
+    },
+    {
+      "id": "muscat",
+      "name": "Muscat",
+      "country": "Oman",
+      "lat": 23.588,
+      "lon": 58.3829,
+      "season": "winter",
+      "note": "Sultan Qaboos Grand Mosque, Mutrah Souq and mountain wadis; pleasant Nov–Mar.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Muscat%2C%20Oman"
+    },
+    {
+      "id": "cappadocia",
+      "name": "Cappadocia",
+      "country": "Türkiye",
+      "lat": 38.6431,
+      "lon": 34.8289,
+      "season": "fall",
+      "note": "Göreme fairy chimneys, cave hotels and sunrise balloon flights; crisp autumn days.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Goreme%2C%20Turkey"
+    }
   ]
 }
