@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-19",
+  "updated": "2026-10-20",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
     {
@@ -251,6 +251,36 @@
       "season": "fall",
       "note": "Göreme fairy chimneys, cave hotels and sunrise balloon flights; crisp autumn days.",
       "link": "https://www.expedia.com/Hotel-Search?destination=Goreme%2C%20Turkey"
+    },
+    {
+      "id": "prague",
+      "name": "Prague",
+      "country": "Czechia",
+      "lat": 50.0755,
+      "lon": 14.4378,
+      "season": "fall",
+      "note": "Old Town Square, Charles Bridge and Prague Castle; golden autumn colours, Christmas markets from late November.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Prague%2C%20Czech%20Republic"
+    },
+    {
+      "id": "alula",
+      "name": "AlUla",
+      "country": "Saudi Arabia",
+      "lat": 26.6084,
+      "lon": 37.9232,
+      "season": "winter",
+      "note": "Hegra's Nabataean tombs, Elephant Rock and desert canyons; cool, clear days Nov–Mar.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=AlUla%2C%20Saudi%20Arabia"
+    },
+    {
+      "id": "zanzibar",
+      "name": "Stone Town, Zanzibar",
+      "country": "Tanzania",
+      "lat": -6.1659,
+      "lon": 39.1925,
+      "season": "winter",
+      "note": "Swahili-Muslim old town, spice farms and Indian Ocean beaches; dry season Dec–Feb.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Zanzibar%2C%20Tanzania"
     }
   ]
 }
