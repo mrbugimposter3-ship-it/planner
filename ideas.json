@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-20",
+  "updated": "2026-10-21",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
     {
@@ -281,6 +281,36 @@
       "season": "winter",
       "note": "Swahili-Muslim old town, spice farms and Indian Ocean beaches; dry season Dec–Feb.",
       "link": "https://www.expedia.com/Hotel-Search?destination=Zanzibar%2C%20Tanzania"
+    },
+    {
+      "id": "strasbourg",
+      "name": "Strasbourg",
+      "country": "France",
+      "lat": 48.5734,
+      "lon": 7.7521,
+      "season": "winter",
+      "note": "One of Europe's oldest Christmas markets (late Nov–Dec), half-timbered Petite France and a Gothic cathedral.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Strasbourg%2C%20France"
+    },
+    {
+      "id": "dubai",
+      "name": "Dubai",
+      "country": "United Arab Emirates",
+      "lat": 25.2048,
+      "lon": 55.2708,
+      "season": "winter",
+      "note": "Pleasant 25°C winters, desert safaris, Al Fahidi old quarter and easy halal food everywhere.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Dubai%2C%20United%20Arab%20Emirates"
+    },
+    {
+      "id": "fes",
+      "name": "Fes",
+      "country": "Morocco",
+      "lat": 34.0181,
+      "lon": -5.0078,
+      "season": "autumn",
+      "note": "Medieval medina, al-Qarawiyyin (world's oldest university) and tanneries; mild, uncrowded in autumn.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Fes%2C%20Morocco"
     }
   ]
 }
