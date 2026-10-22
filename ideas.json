@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
     {
@@ -311,6 +311,36 @@
       "season": "autumn",
       "note": "Medieval medina, al-Qarawiyyin (world's oldest university) and tanneries; mild, uncrowded in autumn.",
       "link": "https://www.expedia.com/Hotel-Search?destination=Fes%2C%20Morocco"
+    },
+    {
+      "id": "budapest",
+      "name": "Budapest",
+      "country": "Hungary",
+      "lat": 47.4979,
+      "lon": 19.0402,
+      "season": "winter",
+      "note": "Thermal baths in crisp weather, Christmas markets from late November, and halal spots around the Jewish Quarter and Rákóczi Street.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Budapest%2C%20Hungary"
+    },
+    {
+      "id": "edinburgh",
+      "name": "Edinburgh",
+      "country": "United Kingdom",
+      "lat": 55.9533,
+      "lon": -3.1883,
+      "season": "autumn",
+      "note": "Moody autumn Old Town, Arthur's Seat hikes, and plenty of halal food near Nicolson Street and the Central Mosque.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Edinburgh%2C%20United%20Kingdom"
+    },
+    {
+      "id": "alanya",
+      "name": "Alanya",
+      "country": "Türkiye",
+      "lat": 36.5437,
+      "lon": 31.9998,
+      "season": "autumn",
+      "note": "Warm Mediterranean sea into November, a clifftop Seljuk castle, and fully halal Turkish hospitality without the summer crowds.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Alanya%2C%20T%C3%BCrkiye"
     }
   ]
 }
