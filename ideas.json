@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-22",
+  "updated": "2026-10-23",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
     {
@@ -341,6 +341,36 @@
       "season": "autumn",
       "note": "Warm Mediterranean sea into November, a clifftop Seljuk castle, and fully halal Turkish hospitality without the summer crowds.",
       "link": "https://www.expedia.com/Hotel-Search?destination=Alanya%2C%20T%C3%BCrkiye"
+    },
+    {
+      "id": "bruges",
+      "name": "Bruges",
+      "country": "Belgium",
+      "lat": 51.2093,
+      "lon": 3.2247,
+      "season": "autumn",
+      "note": "Canal-side medieval lanes in misty autumn colour, with the Christmas market opening in late November; Brussels nearby has plenty of halal food.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Bruges%2C%20Belgium"
+    },
+    {
+      "id": "petra",
+      "name": "Petra",
+      "country": "Jordan",
+      "lat": 30.3285,
+      "lon": 35.4444,
+      "season": "autumn",
+      "note": "Mild late-autumn days are ideal for hiking to the Treasury and Monastery, with Wadi Rum desert camps close by in a fully Muslim-friendly country.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Wadi%20Musa%2C%20Jordan"
+    },
+    {
+      "id": "langkawi",
+      "name": "Langkawi",
+      "country": "Malaysia",
+      "lat": 6.35,
+      "lon": 99.8,
+      "season": "winter",
+      "note": "Duty-free tropical island that hits its dry season from November, with the SkyBridge cable car, mangrove tours and halal food everywhere.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Langkawi%2C%20Malaysia"
     }
   ]
 }
