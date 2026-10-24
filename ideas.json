@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23",
+  "updated": "2026-10-24",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
     {
@@ -371,6 +371,36 @@
       "season": "winter",
       "note": "Duty-free tropical island that hits its dry season from November, with the SkyBridge cable car, mangrove tours and halal food everywhere.",
       "link": "https://www.expedia.com/Hotel-Search?destination=Langkawi%2C%20Malaysia"
+    },
+    {
+      "id": "salzburg",
+      "name": "Salzburg",
+      "country": "Austria",
+      "lat": 47.8095,
+      "lon": 13.055,
+      "season": "winter",
+      "note": "Mozart's baroque old town under Hohensalzburg Fortress, with Advent markets from mid-November and Alpine day trips to Hallstatt.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Salzburg%2C%20Austria"
+    },
+    {
+      "id": "luxor",
+      "name": "Luxor",
+      "country": "Egypt",
+      "lat": 25.6872,
+      "lon": 32.6396,
+      "season": "winter",
+      "note": "Karnak, Luxor Temple and the Valley of the Kings are best in the mild November to February weather, with sunrise balloon rides and halal food everywhere.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Luxor%2C%20Egypt"
+    },
+    {
+      "id": "bukhara",
+      "name": "Bukhara",
+      "country": "Uzbekistan",
+      "lat": 39.7747,
+      "lon": 64.4286,
+      "season": "fall",
+      "note": "Silk Road city of madrasas, the Kalyan Minaret and the shrine of Imam Bahauddin Naqshband, pleasant through early November.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Bukhara%2C%20Uzbekistan"
     }
   ]
 }
