@@ -41,6 +41,24 @@ const SEED=[{id:'ski-mslm',title:'⛷️ Skiing — Mount St. Louis Moonstone',p
  category:'Trip',notes:'Family Day 2027 (Mon Feb 15). Mount St. Louis Moonstone, 24 Mount St. Louis Rd, Coldwater/Moonstone ON — 35 slopes, 170 skiable acres. Season usually mid-December → late March (after March Break), weather permitting; check mountain status before driving.'}];
 let plans=LS('plans')||SEED;if(!LS('plans'))SS('plans',plans);
 const save=()=>SS('plans',plans);
+/* plans.json merges by id (add only). plansMerged remembers applied ids so a deleted shared plan stays deleted.
+   Import also merges by id: the file updates matching ids and leaves every other saved plan in place. */
+function mergeById(incoming,opt){opt=opt||{};
+ const seenRaw=LS('plansMerged'),seen=new Set(Array.isArray(seenRaw)?seenRaw.map(String):[]);
+ let n=0,tracked=false;
+ for(const raw of Array.isArray(incoming)?incoming:[]){
+  if(!raw||typeof raw!=='object'||raw.id==null||String(raw.id).trim()==='')continue;
+  const id=String(raw.id).trim();
+  if(opt.track&&seen.has(id))continue;
+  const i=plans.findIndex(x=>String(x.id)===id);
+  if(i<0){plans.push({...raw,id});n++}
+  else if(opt.overwrite){plans[i]={...raw,id};n++}
+  if(opt.track&&!seen.has(id)){seen.add(id);tracked=true}}
+ if(n)save();
+ if(tracked)SS('plansMerged',[...seen]);
+ return n}
+async function loadRepoPlans(){try{const r=await fetch('plans.json',{cache:'no-cache'});if(!r.ok)return;
+ const j=await r.json();if(!Array.isArray(j))return;if(mergeById(j,{track:true})&&tab=='plans')render()}catch(e){}}
 
 /* ---- Prayer times (PrayTimes.org-style math, MWL: Fajr 18°, Isha 17°, standard Asr) ---- */
 const D=Math.PI/180,sin=x=>Math.sin(x*D),cos=x=>Math.cos(x*D),tan=x=>Math.tan(x*D),asin=x=>Math.asin(x)/D,acos=x=>Math.acos(x)/D,atan2=(y,x)=>Math.atan2(y,x)/D,acot=x=>Math.atan(1/x)/D,fix=(a,b)=>((a%b)+b)%b;
@@ -101,7 +119,8 @@ function render(){document.querySelectorAll('nav button').forEach(b=>b.classList
   <div>${esc(i.note)}</div><div class="row"><button class="btn" onclick="addIdea('${esc(i.id)}')">＋ Add to plan</button><a class="btn s" href="${esc(i.link)}" target="_blank" rel="noopener">Expedia</a></div></div>`).join('')}
  if(tab=='days'){v.innerHTML='<p class="mut">Tap a day to start a plan on it. Islamic dates are approximate (moon sighting).</p>'+daysList()}
  if(tab=='care')v.innerHTML=careHTML();
- if(tab=='more'){v.innerHTML=`<div class="card"><h3>Backup</h3><div class="row"><button class="btn" onclick="exp()">Export JSON</button><label class="btn s" style="margin:0;color:#222">Import JSON<input type="file" accept=".json" hidden onchange="imp(this)"></label></div></div>
+ if(tab=='more'){v.innerHTML=`<div class="card"><h3>Backup</h3><div class="mut">Import merges by id: plans in the file are added or updated, and plans only on this device stay.</div><div class="row"><button class="btn" onclick="exp()">Export JSON</button><label class="btn s" style="margin:0;color:#222">Import JSON<input type="file" accept=".json" hidden onchange="imp(this)"></label></div></div>
+ <div class="card"><h3>Shared plans</h3><div class="mut">Trip plans published with the app are added on load. Ones you already saved are left as-is, and deleting one here keeps it deleted.</div></div>
   <div class="card"><h3>Prayer times</h3><div class="mut">Computed offline (MWL 18°/17°, standard Asr) — Boran4Law’s <a href="${PRAYER_APP}" target="_blank">Prayer Scroll · Europe</a> uses the Aladhan API live. Always check your local masjid.</div></div>`}}
 let calM=new Date();calM.setDate(1);
 function calHTML(){const y=calM.getFullYear(),m=calM.getMonth(),first=(new Date(y,m,1).getDay()),n=new Date(y,m+1,0).getDate(),pd=k=>String(k).padStart(2,'0');
@@ -139,8 +158,8 @@ $('#pickday').onclick=()=>{const d=document.createElement('dialog');d.id='pd';d.
  document.body.append(d);d.addEventListener('close',()=>d.remove());pickCb=v=>{$('#f').elements.date.value=v;window._season=seasonOf(v)};d.showModal()};
 window.addIdea=id=>{const i=ideas.ideas.find(x=>x.id==id);edit(null,{title:'✈️ '+i.name,place:i.name+', '+i.country,link:i.link,notes:i.note})};
 window.exp=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(plans,null,1)],{type:'application/json'}));a.download='planner-backup.json';a.click()};
-window.imp=inp=>{const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);if(!Array.isArray(j))throw 0;plans=j;save();tab='plans';render()}catch(e){alert('Not a planner backup')}};r.readAsText(inp.files[0])};
+window.imp=inp=>{const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);if(!Array.isArray(j))throw 0;mergeById(j,{overwrite:true});tab='plans';render()}catch(e){alert('Not a planner backup')}inp.value=''};r.readAsText(inp.files[0])};
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.t;render()});
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js');
-render();loadIdeas().then(()=>tab=='ideas'&&render());
+render();loadIdeas().then(()=>tab=='ideas'&&render());loadRepoPlans();
 </script></body></html>
