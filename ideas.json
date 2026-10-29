@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24",
+  "updated": "2026-10-29",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
     {
@@ -401,6 +401,36 @@
       "season": "fall",
       "note": "Silk Road city of madrasas, the Kalyan Minaret and the shrine of Imam Bahauddin Naqshband, pleasant through early November.",
       "link": "https://www.expedia.com/Hotel-Search?destination=Bukhara%2C%20Uzbekistan"
+    },
+    {
+      "id": "krakow",
+      "name": "Kraków",
+      "country": "Poland",
+      "lat": 50.0647,
+      "lon": 19.945,
+      "season": "winter",
+      "note": "The Main Square Christmas market runs late November to December, with Wawel Castle, the Wieliczka salt mine and cosy, budget-friendly old-town stays.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Krak%C3%B3w%2C%20Poland"
+    },
+    {
+      "id": "bandar-seri-begawan",
+      "name": "Bandar Seri Begawan",
+      "country": "Brunei",
+      "lat": 4.9031,
+      "lon": 114.9398,
+      "season": "autumn",
+      "note": "A calm, fully halal capital with the golden Sultan Omar Ali Saifuddien Mosque, the Kampong Ayer water village and day trips into Ulu Temburong rainforest.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Bandar%20Seri%20Begawan%2C%20Brunei"
+    },
+    {
+      "id": "maldives",
+      "name": "Maldives",
+      "country": "Maldives",
+      "lat": 4.1755,
+      "lon": 73.5093,
+      "season": "winter",
+      "note": "The dry season from December to April brings calm turquoise water for snorkelling with mantas, in a Muslim country where halal food is the norm.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Maldives"
     }
   ]
 }
