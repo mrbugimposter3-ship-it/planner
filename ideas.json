@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29",
+  "updated": "2026-10-30",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
     {
@@ -431,6 +431,36 @@
       "season": "winter",
       "note": "The dry season from December to April brings calm turquoise water for snorkelling with mantas, in a Muslim country where halal food is the norm.",
       "link": "https://www.expedia.com/Hotel-Search?destination=Maldives"
+    },
+    {
+      "id": "copenhagen",
+      "name": "Copenhagen",
+      "country": "Denmark",
+      "lat": 55.6761,
+      "lon": 12.5683,
+      "season": "winter",
+      "note": "Tivoli Gardens lights up for its Christmas season from mid-November, with cosy canal walks in Nyhavn and halal shawarma and kebab spots around Nørrebro.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Copenhagen"
+    },
+    {
+      "id": "sharjah",
+      "name": "Sharjah",
+      "country": "United Arab Emirates",
+      "lat": 25.3463,
+      "lon": 55.4209,
+      "season": "winter",
+      "note": "The UAE's cultural capital is pleasantly warm from November to March, with the Museum of Islamic Civilization, the Al Noor Mosque and the Heart of Sharjah heritage quarter.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Sharjah"
+    },
+    {
+      "id": "tangier",
+      "name": "Tangier",
+      "country": "Morocco",
+      "lat": 35.7595,
+      "lon": -5.834,
+      "season": "autumn",
+      "note": "Mild late-autumn days suit wandering the kasbah and medina, the Caves of Hercules and Cap Spartel, with Spain visible across the strait and halal food everywhere.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Tangier"
     }
   ]
 }
