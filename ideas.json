@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "source": "Curated seed list. A daily job appends new items to `ideas` (keep `id` unique) and bumps `updated`.",
   "ideas": [
     {
@@ -461,6 +461,36 @@
       "season": "autumn",
       "note": "Mild late-autumn days suit wandering the kasbah and medina, the Caves of Hercules and Cap Spartel, with Spain visible across the strait and halal food everywhere.",
       "link": "https://www.expedia.com/Hotel-Search?destination=Tangier"
+    },
+    {
+      "id": "nuremberg",
+      "name": "Nuremberg",
+      "country": "Germany",
+      "lat": 49.4521,
+      "lon": 11.0767,
+      "season": "winter",
+      "note": "The Christkindlesmarkt opens in late November with gingerbread stalls and lights below the medieval Kaiserburg castle, and the old town is easy to walk on crisp winter days.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Nuremberg"
+    },
+    {
+      "id": "aswan",
+      "name": "Aswan",
+      "country": "Egypt",
+      "lat": 24.0889,
+      "lon": 32.8998,
+      "season": "winter",
+      "note": "Warm, dry winter days are ideal for felucca rides on the Nile, Philae Temple, the colourful Nubian villages and a day trip to Abu Simbel.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Aswan"
+    },
+    {
+      "id": "jeddah",
+      "name": "Jeddah",
+      "country": "Saudi Arabia",
+      "lat": 21.4858,
+      "lon": 39.1925,
+      "season": "winter",
+      "note": "Comfortable from November to February for exploring the coral-stone houses of historic Al-Balad, the Corniche and the floating mosque, and an easy gateway for Umrah.",
+      "link": "https://www.expedia.com/Hotel-Search?destination=Jeddah"
     }
   ]
 }
